@@ -42,9 +42,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
+<<<<<<< HEAD
     'corsheaders',
     'profiles',
     'product'
+=======
+    'profiles',
+>>>>>>> 00a6e2be806bb97545ae2222c7f27dd092660205
 ]
 
 MIDDLEWARE = [

@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<<< HEAD:.idea/misc.xml
   <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.9" project-jdk-type="Python SDK" />
+========
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.10 (project_helli8)" project-jdk-type="Python SDK" />
+>>>>>>>> 00a6e2be806bb97545ae2222c7f27dd092660205:project_helli8/.idea/misc.xml
 </project>

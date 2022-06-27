@@ -14,7 +14,11 @@ class UserProfileManager(BaseUserManager):
 
         email = self.normalize_email(email)
         user = self.model(email=email, name=name)
+<<<<<<< HEAD
         # profile_img = models.ImageField(upload_to='uploads/', blank=True, null=True)
+=======
+
+>>>>>>> 00a6e2be806bb97545ae2222c7f27dd092660205
         user.set_password(password)
         user.save(using=self._db)
 

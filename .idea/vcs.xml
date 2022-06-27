@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="VcsDirectoryMappings">
+<<<<<<< HEAD:.idea/vcs.xml
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
   </component>
 </project>
+=======
+    <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
+  </component>
+</project>
+>>>>>>> 00a6e2be806bb97545ae2222c7f27dd092660205:helli_project/.idea/vcs.xml
