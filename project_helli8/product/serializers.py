@@ -10,14 +10,15 @@ class UserProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.UserProduct
-        fields = ('id', 'name', 'author','desc')
+        fields = ('id', 'name', 'author','desc','img')
 
     def create(self, validated_data):
         """Create and return a new user"""
         product = models.UserProduct.objects.create_product(
             name=validated_data['name'],
             author=validated_data['author'],
-            desc=validated_data['desc']
+            desc=validated_data['desc'],
+            img=validated_data['img'],
         )
 
         return product

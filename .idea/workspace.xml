@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9923bc85-4d27-43ed-afc5-db98df254906" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_helli8/main/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/project_helli8/main/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_helli8/profiles/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/project_helli8/profiles/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_helli8/project_helli8/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/project_helli8/project_helli8/settings.py" afterDir="false" />
-    </list>
+    <list default="true" id="9923bc85-4d27-43ed-afc5-db98df254906" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -29,7 +23,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../project_helli8" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RunManager">
@@ -78,6 +72,7 @@
       <workItem from="1649316073563" duration="86000" />
       <workItem from="1649686814238" duration="28000" />
       <workItem from="1656565107814" duration="959000" />
+      <workItem from="1656566157618" duration="104000" />
     </task>
     <servers />
   </component>

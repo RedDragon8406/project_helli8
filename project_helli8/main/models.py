@@ -9,17 +9,23 @@ class UserMainManager(models.Manager):
         main.save(using=self._db)
 
         return main
+    def CreateMain(self, app):
+        """Create and save a superuser with given details"""
+        main = self.create_product(app)
+
+        main.save(using=self._db)
+
+        return main
+
 
 
 class UserMain(models.Model):
     '''database model for users in the system'''
     app=models.CharField(max_length=255)
-    # image = models.ImageField(upload_to='main/', null=True, blank=True)
 
     objects = UserMainManager()
-    USERNAME_FIELD = 'app'
     REQUIRED_FIELDS = ['app']
 
     def __str__(self):
         """return string representation of our user"""
-        return self.name
+        return self.app
