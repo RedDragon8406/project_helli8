@@ -25,14 +25,6 @@ SECRET_KEY = 'django-insecure-hlwvj#pk_29f_q^v9zs)qzxteq&9$)0nr2&cj2sd7ji(d_-84k
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    'localhost',
-    '192.168.43.166',
-    '192.168.43.125'
-]
-CORS_ORIGIN_ALLOW_ALL = True
-# Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -42,14 +34,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
-<<<<<<< HEAD
     'corsheaders',
     'profiles',
-    'product'
-=======
-    'profiles',
->>>>>>> 00a6e2be806bb97545ae2222c7f27dd092660205
+    'product',
+    'profiles'
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -61,6 +51,14 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
 ]
+ALLOWED_HOSTS = [
+    'localhost',
+    '192.168.43.166',
+    '192.168.43.125'
+]
+CORS_ORIGIN_ALLOW_ALL = True
+# Application definition
+
 
 ROOT_URLCONF = 'project_helli8.urls'
 
