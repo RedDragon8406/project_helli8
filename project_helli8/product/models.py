@@ -1,6 +1,7 @@
 from django.db import models
 import os
 
+from cat.models import UserCat
 def get_filename_ext(filepath):
     base_name = os.path.basename(filepath)
     name, ext = os.path.splitext(base_name)
@@ -43,6 +44,9 @@ class UserProduct(models.Model):
     author=models.CharField(max_length=255)
     desc=models.TextField()
     img = models.ImageField(upload_to='product/', null=True, blank=True)
+    categories = models.ManyToManyField(UserCat, blank=True)
+
+
     is_there = models.BooleanField(default=False)
 
     objects = UserProductManager()
@@ -52,3 +56,4 @@ class UserProduct(models.Model):
     def __str__(self):
         """return string representation of our user"""
         return self.name
+

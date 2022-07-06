@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.models import BaseUserManager
 import os
+from product import models as m
 def get_filename_ext(filepath):
     base_name = os.path.basename(filepath)
     name, ext = os.path.splitext(base_name)
@@ -37,13 +38,15 @@ class UserProfileManager(BaseUserManager):
 
     def create_superuser(self, email, name, password,img):
         """Create and save a superuser with given details"""
-        user = self.create_user(email,name,password,img)
+        user = self.create_user(email=email,name=name,img=img)
+        user.set_password(password)
 
         user.is_superuser=True
         user.is_staff=True
         user.save(using=self._db)
 
         return user
+
 
 
 class UserProfile(AbstractBaseUser, PermissionsMixin):
@@ -53,7 +56,7 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     img = models.ImageField(upload_to='profile/', null=True, blank=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
-
+    favorite = models.ManyToManyField(m.UserProduct,blank=True)
 
     objects = UserProfileManager()
 

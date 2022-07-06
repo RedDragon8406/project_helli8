@@ -29,7 +29,7 @@ ALLOWED_HOSTS = [
     'localhost',
     '192.168.43.166',
     '192.168.43.125',
-    '192.168.53.237'
+    '192.168.43.166'
 ]
 CORS_ORIGIN_ALLOW_ALL = True
 # Application definition
@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'profiles',
     'product',
-    'main'
+    'main',
+    'cat'
 ]
 
 MIDDLEWARE = [
