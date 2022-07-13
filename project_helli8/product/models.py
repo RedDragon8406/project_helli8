@@ -1,7 +1,11 @@
-from django.db import models
-import os
 
+
+from django.core.validators import FileExtensionValidator
+from django.db import models
+from django.db.models import Q
+import os
 from cat.models import UserCat
+
 def get_filename_ext(filepath):
     base_name = os.path.basename(filepath)
     name, ext = os.path.splitext(base_name)
@@ -22,8 +26,9 @@ def upload_gallery_image_path(instance, filename):
 class UserProductManager(models.Manager):
     """Manager for user profiles"""
 
-    def create_product(self, name, author, img, desc=None):
-        product = self.model(name=name,desc=desc,author=author,img=img)
+    def create_product(self, name, author, img,cat,exist, desc=None):
+        product = self.model(name=name,desc=desc,author=author,img=img,exist=exist)
+        product.categories.set(cat)
         product.save(using=self._db)
 
         return product
@@ -37,6 +42,26 @@ class UserProductManager(models.Manager):
 
         return product
 
+    def get_active_products(self):
+        return self.get_queryset().filter(is_there=True)
+
+    def get_products_by_category(self, category_name):
+        return self.get_queryset().filter(categories__name__iexact=category_name, is_there=True)
+
+    def get_by_id(self, product_id):
+        qs = self.get_queryset().filter(id=product_id)
+        if qs.count() == 1:
+            return qs.first()
+        else:
+            return None
+
+    def search(self, query):
+        lookup = (
+                Q(name__icontains=query) |
+                Q(desc__icontains=query) |
+                Q(tag__title__icontains=query)
+        )
+        return self.get_queryset().filter(lookup, is_there=True).distinct()
 
 class UserProduct(models.Model):
     '''database model for users in the system'''
@@ -45,15 +70,16 @@ class UserProduct(models.Model):
     desc=models.TextField()
     img = models.ImageField(upload_to='product/', null=True, blank=True)
     categories = models.ManyToManyField(UserCat, blank=True)
+    date = models.DateTimeField(auto_now_add=True)
+    # rate = models.SmallIntegerField(blank=True)
 
-
-    is_there = models.BooleanField(default=False)
+    exist = models.BooleanField(default=False)
 
     objects = UserProductManager()
-    USERNAME_FIELD = 'name'
-    REQUIRED_FIELDS = ['name','author']
 
     def __str__(self):
         """return string representation of our user"""
         return self.name
 
+    class Meta:
+        ordering=['name']

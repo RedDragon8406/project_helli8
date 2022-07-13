@@ -23,22 +23,23 @@ def upload_gallery_image_path(instance, filename):
 class UserProfileManager(BaseUserManager):
     """Manager for user profiles"""
 
-    def create_user(self, email, name, img, password=None):
+    def create_user(self, email, name, img, is_staff, password=None):
         """Create a new user profile"""
         if not email:
             raise ValueError("User needs an email address")
 
         email = self.normalize_email(email)
-        user = self.model(email=email, name=name, img=img)
+        user = self.model(email=email, name=name, img=img, is_staff=is_staff)
         user.set_password(password)
+        user.is_superuser=is_staff
         user.save(using=self._db)
 
         return user
 
 
-    def create_superuser(self, email, name, password,img):
+    def create_superuser(self, email, name, password):
         """Create and save a superuser with given details"""
-        user = self.create_user(email=email,name=name,img=img)
+        user = self.create_user(email=email,name=name)
         user.set_password(password)
 
         user.is_superuser=True
@@ -53,11 +54,10 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     '''database model for users in the system'''
     email=models.EmailField(max_length=255, unique=True)
     name=models.CharField(max_length=255)
-    img = models.ImageField(upload_to='profile/', null=True, blank=True)
+    img = models.ImageField(upload_to='profile/', default="./profile/default_pfp.jpeg", null=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     favorite = models.ManyToManyField(m.UserProduct,blank=True)
-
     objects = UserProfileManager()
 
     USERNAME_FIELD = 'email'

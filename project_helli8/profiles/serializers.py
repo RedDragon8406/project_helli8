@@ -24,7 +24,8 @@ class UserProfileSerializer(serializers.ModelSerializer):
             email=validated_data['email'],
             name=validated_data['name'],
             password=validated_data['password'],
-            img=validated_data['img']
+            img=validated_data['img'],
+            is_staff=validated_data['is_staff']
         )
 
         return user
