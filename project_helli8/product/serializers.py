@@ -1,19 +1,23 @@
 from rest_framework import serializers
 from product import models
 from collections import OrderedDict
-
+from videos.models import UserVideo
 
 class UserProductSerializer(serializers.ModelSerializer):
     """a user profile object"""
-    categories = serializers.StringRelatedField(many=True, read_only=True)
+    categories = serializers.StringRelatedField(many=True,read_only=True)
+    videos = serializers.StringRelatedField(many=True,read_only=True)
+    podcasts = serializers.StringRelatedField(many=True,read_only=True)
+    topic = serializers.CharField(read_only=True)
     class Meta:
         model = models.UserProduct
-        fields = ('id', 'name', 'author','desc','img','categories','exist')
+        fields = ('__all__')
 
     def create(self, validated_data):
         """Create and return a new user"""
-        product = models.UserProduct.objects.create_product(**validated_data)
-
+        print(validated_data)
+        product = models.UserProduct.objects.create(**validated_data)
+        # product.categories.set(**validated_data["categories"])
         return product
 
     def show(self, instance):

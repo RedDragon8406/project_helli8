@@ -1,10 +1,6 @@
 from rest_framework import serializers
 from cat import models
 
-class Serializer(serializers.Serializer):
-    """Serializers a name field for testing our api view"""
-    name = serializers.CharField(max_length=50)
-
 class UserCatSerializer(serializers.ModelSerializer):
     """a user profile object"""
 

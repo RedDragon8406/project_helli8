@@ -114,3 +114,43 @@ class UserProfileViewSet(viewsets.ModelViewSet):
 class UserLoginApiView(ObtainAuthToken):
     """Handle creating user authentication tokens"""
     renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES
+
+
+from django.http import HttpResponse, JsonResponse
+from rest_framework.parsers import JSONParser
+from profiles.models import UserProfile
+from profiles.serializers import UserProfileSerializer
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
+@api_view(['GET', 'POST'])
+def profile_list(request):
+
+    if request.method == 'GET':
+        profiles = UserProfile.objects.all()
+        serializer = UserProfileSerializer(profiles, many=True)
+        return JsonResponse(serializer.data)
+@api_view(['GET', 'PUT', 'DELETE'])
+def profile_detail(request, pk):
+    """
+    Retrieve, update or delete a code profile.
+    """
+    try:
+        profile = UserProfile.objects.get(pk=pk)
+    except profile.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = UserProfileSerializer(profile)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = UserProfileSerializer(profile, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        profile.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

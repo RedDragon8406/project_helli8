@@ -5,7 +5,7 @@ from django.db import models
 from django.db.models import Q
 import os
 from cat.models import UserCat
-
+from topic.models import UserTopic
 def get_filename_ext(filepath):
     base_name = os.path.basename(filepath)
     name, ext = os.path.splitext(base_name)
@@ -14,21 +14,16 @@ def get_filename_ext(filepath):
 
 def upload_image_path(instance, filename):
     name, ext = get_filename_ext(filename)
-    final_name = f"{instance.id}-{instance.title}{ext}"
+    final_name = f"{instance.id}-{instance.name}{ext}"
     return f"products/{final_name}"
-
-def upload_gallery_image_path(instance, filename):
-    name, ext = get_filename_ext(filename)
-    final_name = f"{instance.id}-{instance.title}{ext}"
-    return f"products/galleries/{final_name}"
 
 
 class UserProductManager(models.Manager):
     """Manager for user profiles"""
 
-    def create_product(self, name, author, img,cat,exist, desc=None):
-        product = self.model(name=name,desc=desc,author=author,img=img,exist=exist)
-        product.categories.set(cat)
+    def create_product(self, **kwargs):
+        product = self.model(name=kwargs["name"],desc=kwargs["desc"],author=kwargs["author"],img=kwargs["img"],exist=kwargs["exist"])
+        # product.categories.set(kwargs["cat"])
         product.save(using=self._db)
 
         return product
@@ -68,9 +63,10 @@ class UserProduct(models.Model):
     name=models.CharField(max_length=255)
     author=models.CharField(max_length=255)
     desc=models.TextField()
-    img = models.ImageField(upload_to='product/', null=True, blank=True)
+    img = models.ImageField(upload_to=upload_image_path, null=True, blank=True)
     categories = models.ManyToManyField(UserCat, blank=True)
     date = models.DateTimeField(auto_now_add=True)
+    topic = models.ForeignKey(UserTopic,on_delete=models.CASCADE,related_name="products")
     # rate = models.SmallIntegerField(blank=True)
 
     exist = models.BooleanField(default=False)

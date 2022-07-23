@@ -1,14 +1,12 @@
+from collections import OrderedDict
+
 from rest_framework import serializers
 from videos import models
-
-class Serializer(serializers.Serializer):
-    """Serializers a name field for testing our api view"""
-    title = serializers.CharField(max_length=100)
-
 
 
 class VideoSerializer(serializers.ModelSerializer):
     """a user profile object"""
+    video = serializers.CharField(max_length=200)
 
     class Meta:
         model = models.UserVideo
@@ -22,3 +20,10 @@ class VideoSerializer(serializers.ModelSerializer):
         )
 
         return video
+    def show(self, instance):
+        data = super(serializers.ModelSerializer, self).show(instance)
+        result = OrderedDict()
+        result['data'] = data
+        result['message'] = 'Done'
+        result['status'] = 'sucssed'
+        return result
