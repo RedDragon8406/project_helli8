@@ -28,7 +28,7 @@ class VoiceManager(models.Manager):
 
 
     def CreateVideo(self, title, video):
-        """Create and save a superuser with given details"""
+        """Create and save a video with given details"""
         video = self.create_video(title, video)
         video.save(using=self._db)
 
@@ -49,4 +49,3 @@ class UserVoice(models.Model):
     def __str__(self):
         """return string representation of our user"""
         return self.title
-
