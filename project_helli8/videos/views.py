@@ -29,9 +29,9 @@ def video_list(request):
         return JsonResponse(serializer.data,safe=False)
 
     elif request.method == 'POST':
-        serializer = VideoSerializer(data=request.data)
+        data = JSONParser().parse(request)
+        serializer = VideoSerializer(data=data)
         if serializer.is_valid():
-            serializer.save()
-            print(serializer.data)
-            return JsonResponse(serializer.data, status=201)
+            serializer.create(data)
+            return JsonResponse(data, status=201)
         return JsonResponse(serializer.errors, status=400)

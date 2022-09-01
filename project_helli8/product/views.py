@@ -1,51 +1,4 @@
-# from rest_framework import filters
-# from rest_framework import viewsets
-# from rest_framework.decorators import api_view
-# from product.models import UserProduct
-# from product import serializers
-# from django.views.generic import ListView
-# from rest_framework.response import Response
-# # Create your views here.
-#
-#
-# # class UserProductViewSet(viewsets.ModelViewSet):
-# #     """Handle creating, creating and updating profiles"""
-# #     serializer_class = serializers.UserProductSerializer
-# #     queryset = models.UserProduct.objects.all()
-# #     filter_backends = (filters.SearchFilter,)
-# #     search_fields = ('name', 'author')
-#
-#
-#
-#
-# class SearchProductsView(ListView):
-#     paginate_by = 3
-#
-#     def get_queryset(self):
-#         request = self.request
-#         print(request.GET)
-#         query = request.GET.get('q')
-#         global title
-#         title = query
-#         if query is not None:
-#             return models.UserProduct.objects.search(query)
-#         return models.UserProduct.objects.get_active_products()
-#
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['title'] = title
-#         return context
 
-
-
-
-
-
-
-
-from django.http import HttpResponse, JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-#from rest_framework.parsers import JSONParser
 
 from rest_framework.parsers import JSONParser
 from rest_framework import status
@@ -54,6 +7,9 @@ from rest_framework.response import Response
 from product.models import UserProduct
 from product.serializers import UserProductSerializer
 from django.http import HttpResponse, JsonResponse
+
+from rest_framework.views import APIView
+
 
 @api_view(['GET', 'POST'])
 def product_list(request):
@@ -98,4 +54,17 @@ def product_detail(request, pk):
 
 
 
+class search(APIView):
+    def get(self, request, format=None):
+        print(request.GET)
+        query = request.GET.get('q')
+        global title
+        title = query
+        if query is not None:
+            print("shalam")
+            result = UserProduct.objects.search(query)
+        else:
+            result = UserProduct.objects.get_active_products(query)
+        serializer = UserProductSerializer(result, many=True)
+        return JsonResponse(serializer.data,safe=False)
 

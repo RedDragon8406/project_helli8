@@ -15,10 +15,17 @@ class UserProductSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         """Create and return a new user"""
-        print(validated_data)
-        product = models.UserProduct.objects.create(**validated_data)
-        # product.categories.set(**validated_data["categories"])
-        return product
+        user = models.UserProduct.objects.create_product(
+            name=validated_data['name'],
+            author=validated_data['author'],
+            desc=validated_data['desc'],
+            img=validated_data['img'],
+            exist=validated_data['exist'],
+            topic=validated_data['topic'],
+            categories=validated_data['categories']
+        )
+
+        return user
 
     def show(self, instance):
         data = super(serializers.ModelSerializer, self).show(instance)

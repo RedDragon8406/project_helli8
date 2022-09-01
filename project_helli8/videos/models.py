@@ -20,19 +20,14 @@ def upload_video_path(instance, filename):
 class VideosManager(models.Manager):
     """Manager for user profiles"""
 
-    def create_video(self, title, video):
-        video = self.model(title=title,video=video)
+    def create_video(self, request):
+        video = self.model(title=request["title"],video=request["video"])
+        video.product_id = request["product"]
         video.save(using=self._db)
 
         return video
 
 
-    def CreateVideo(self, title, video):
-        """Create and save a superuser with given details"""
-        video = self.create_video(title, video)
-        video.save(using=self._db)
-
-        return video
 
 class UserVideo(models.Model):
     '''database model for users in the system'''
