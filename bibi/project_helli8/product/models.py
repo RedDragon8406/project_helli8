@@ -3,6 +3,9 @@ import os
 from cat.models import UserCat
 from topic.models import UserTopic
 
+class table_marami(models.Model):
+    record_id = models.AutoField(primary_key=True)
+    text = models.TextField()
 
 def get_filename_ext(filepath):
     base_name = os.path.basename(filepath)
