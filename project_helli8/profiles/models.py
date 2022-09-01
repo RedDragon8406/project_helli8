@@ -47,7 +47,13 @@ class UserProfileManager(BaseUserManager):
         user.save(using=self._db)
 
         return user
-
+    def get_name_by_id(self,id):
+        qs = self.get_queryset().filter(id=id)
+        if qs.count() == 1:
+            result = qs.first()
+        else:
+            return None
+        return result.name
 
 
 class UserProfile(AbstractBaseUser, PermissionsMixin):

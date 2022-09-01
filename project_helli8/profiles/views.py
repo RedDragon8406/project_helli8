@@ -154,3 +154,9 @@ def profile_detail(request, pk):
     elif request.method == 'DELETE':
         profile.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+@api_view(['POST'])
+def get_name(request):
+    a=request.data["id"]
+    print(a)
+    result= UserProfile.objects.get_name_by_id(a)
+    return JsonResponse(result,safe=False)

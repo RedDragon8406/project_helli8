@@ -11,5 +11,6 @@ router.register("profile", views.UserProfileViewSet)
 urlpatterns = [
     path('sup', views.ApiView.as_view()),
     path('login/',views.UserLoginApiView.as_view()),
-    path('',include(router.urls))
+    path('',include(router.urls)),
+    path('lili',views.get_name)
 ]
