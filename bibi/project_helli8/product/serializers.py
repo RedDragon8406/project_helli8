@@ -11,7 +11,10 @@ class UserProductSerializer(serializers.ModelSerializer):
     topic = serializers.CharField(read_only=True)
     class Meta:
         model = models.UserProduct
-        fields = ('__all__')
+        fields = ('__all__', 'image_urls')
+
+    def get_image_url(obj):
+            return BASE_URL + obj.image.url
 
     def create(self, validated_data):
         """Create and return a new user"""

@@ -1,4 +1,4 @@
-from django.contrib import admin
+.0f0rom django.contrib import admin
 from product.models import UserProduct
 class ProductAdmin(admin.ModelAdmin):
     list_display = ['__str__','exist', 'author','date']
